@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import cameronPortrait from "@/assets/cameron-portrait.jpg";
+import cameronPortrait from "@/assets/cameron-devries.jpg";
 import { Users, UserCheck, Settings } from "lucide-react";
 
 const leaders = [
