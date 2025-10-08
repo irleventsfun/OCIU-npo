@@ -2,35 +2,28 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import cameronPortrait from "@/assets/cameron-devries.jpg";
 import { Users, UserCheck, Settings } from "lucide-react";
-
-const leaders = [
-  {
-    name: "Cameron De Vries",
-    role: "Director",
-    percentage: "60%",
-    icon: Users,
-    image: cameronPortrait,
-    description: "Leading the vision and strategic direction of Community & Unity, and host of Unspoken Truths podcast.",
-  },
-  {
-    name: "Bertha Alicia De Vries",
-    role: "HR Manager",
-    percentage: "30%",
-    icon: UserCheck,
-    description: "Driving people-first culture and building strong teams that reflect our community values.",
-  },
-  {
-    name: "Antonio Clifford Marais",
-    role: "Operations Manager",
-    percentage: "10%",
-    icon: Settings,
-    description: "Ensuring smooth operations and sustainable growth across all our initiatives.",
-  },
-];
-
+const leaders = [{
+  name: "Cameron De Vries",
+  role: "Director",
+  percentage: "60%",
+  icon: Users,
+  image: cameronPortrait,
+  description: "Leading the vision and strategic direction of Community & Unity, and host of Unspoken Truths podcast."
+}, {
+  name: "Bertha Alicia De Vries",
+  role: "HR Manager",
+  percentage: "30%",
+  icon: UserCheck,
+  description: "Driving people-first culture and building strong teams that reflect our community values."
+}, {
+  name: "Antonio Clifford Marais",
+  role: "Operations Manager",
+  percentage: "10%",
+  icon: Settings,
+  description: "Ensuring smooth operations and sustainable growth across all our initiatives."
+}];
 export const Leadership = () => {
-  return (
-    <section className="py-24 bg-muted/30">
+  return <section className="py-24 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto space-y-16">
           {/* Section Header */}
@@ -46,28 +39,17 @@ export const Leadership = () => {
           {/* Leadership Cards */}
           <div className="grid md:grid-cols-3 gap-8">
             {leaders.map((leader, index) => {
-              const Icon = leader.icon;
-              return (
-                <Card 
-                  key={leader.name}
-                  className="border-2 hover:border-primary/40 transition-all hover:shadow-xl animate-slide-up overflow-hidden"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
+            const Icon = leader.icon;
+            return <Card key={leader.name} className="border-2 hover:border-primary/40 transition-all hover:shadow-xl animate-slide-up overflow-hidden" style={{
+              animationDelay: `${index * 0.1}s`
+            }}>
                   <CardContent className="p-0">
                     {/* Image or Icon */}
-                    {leader.image ? (
-                      <div className="w-full h-64 overflow-hidden bg-gradient-hero">
-                        <img 
-                          src={leader.image} 
-                          alt={leader.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-full h-64 bg-gradient-hero flex items-center justify-center">
+                    {leader.image ? <div className="w-full h-64 overflow-hidden bg-gradient-hero">
+                        <img src={leader.image} alt={leader.name} className="max-w-full max-h-full -bottom-0 " />
+                      </div> : <div className="w-full h-64 bg-gradient-hero flex items-center justify-center">
                         <Icon className="w-24 h-24 text-white/80" />
-                      </div>
-                    )}
+                      </div>}
                     
                     {/* Content */}
                     <div className="p-6 space-y-4">
@@ -89,12 +71,10 @@ export const Leadership = () => {
                       </p>
                     </div>
                   </CardContent>
-                </Card>
-              );
-            })}
+                </Card>;
+          })}
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
