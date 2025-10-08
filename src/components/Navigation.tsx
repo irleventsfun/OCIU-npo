@@ -20,9 +20,9 @@ const navItems = [{
 }];
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  return <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b border-border shadow-sm bg-[vrgb(51,_0,_255)] bg-[#3300ff]">
+  return <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b border-border shadow-sm bg-primary">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 bg-[#3300ff]">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#home" className="flex items-center">
             <img src={logoBanner} alt="Community & Unity" className="h-12 w-auto" />
@@ -30,7 +30,7 @@ export const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            {navItems.map(item => <a key={item.label} href={item.href} className="text-foreground hover:text-primary transition-colors font-medium">
+            {navItems.map(item => <a key={item.label} href={item.href} className="text-primary-foreground hover:text-accent transition-colors font-medium">
                 {item.label}
               </a>)}
           </div>
@@ -43,7 +43,7 @@ export const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && <div className="md:hidden py-4 space-y-3 border-t border-border">
-            {navItems.map(item => <a key={item.label} href={item.href} className="block py-2 text-foreground hover:text-primary transition-colors font-medium" onClick={() => setIsOpen(false)}>
+            {navItems.map(item => <a key={item.label} href={item.href} className="block py-2 text-primary-foreground hover:text-accent transition-colors font-medium" onClick={() => setIsOpen(false)}>
                 {item.label}
               </a>)}
           </div>}
