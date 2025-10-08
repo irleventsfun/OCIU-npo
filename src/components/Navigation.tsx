@@ -2,71 +2,51 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import logoBanner from "@/assets/logo-banner.png";
 import { Menu, X } from "lucide-react";
-
-const navItems = [
-  { label: "Mission", href: "#mission" },
-  { label: "Leadership", href: "#leadership" },
-  { label: "Podcast", href: "#podcast" },
-  { label: "Services", href: "#services" },
-  { label: "Get Involved", href: "#join" },
-];
-
+const navItems = [{
+  label: "Mission",
+  href: "#mission"
+}, {
+  label: "Leadership",
+  href: "#leadership"
+}, {
+  label: "Podcast",
+  href: "#podcast"
+}, {
+  label: "Services",
+  href: "#services"
+}, {
+  label: "Get Involved",
+  href: "#join"
+}];
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
+  return <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b border-border shadow-sm bg-[vrgb(51,_0,_255)] bg-[#3300ff]">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 bg-[#3300ff]">
           {/* Logo */}
           <a href="#home" className="flex items-center">
-            <img 
-              src={logoBanner} 
-              alt="Community & Unity" 
-              className="h-12 w-auto"
-            />
+            <img src={logoBanner} alt="Community & Unity" className="h-12 w-auto" />
           </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-foreground hover:text-primary transition-colors font-medium"
-              >
+            {navItems.map(item => <a key={item.label} href={item.href} className="text-foreground hover:text-primary transition-colors font-medium">
                 {item.label}
-              </a>
-            ))}
+              </a>)}
           </div>
 
           {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsOpen(!isOpen)}
-          >
+          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X /> : <Menu />}
           </Button>
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden py-4 space-y-3 border-t border-border">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="block py-2 text-foreground hover:text-primary transition-colors font-medium"
-                onClick={() => setIsOpen(false)}
-              >
+        {isOpen && <div className="md:hidden py-4 space-y-3 border-t border-border">
+            {navItems.map(item => <a key={item.label} href={item.href} className="block py-2 text-foreground hover:text-primary transition-colors font-medium" onClick={() => setIsOpen(false)}>
                 {item.label}
-              </a>
-            ))}
-          </div>
-        )}
+              </a>)}
+          </div>}
       </div>
-    </nav>
-  );
+    </nav>;
 };
