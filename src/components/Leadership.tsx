@@ -46,7 +46,7 @@ export const Leadership = () => {
                   <CardContent className="p-0">
                     {/* Image or Icon */}
                     {leader.image ? <div className="w-full h-64 overflow-hidden bg-gradient-hero">
-                        <img src={leader.image} alt={leader.name} className="max-w-full max-h-full -bottom-0 " />
+                        <img src={leader.image} alt={leader.name} className="w-full h-full object-cover" />
                       </div> : <div className="w-full h-64 bg-gradient-hero flex items-center justify-center">
                         <Icon className="w-24 h-24 text-white/80" />
                       </div>}
