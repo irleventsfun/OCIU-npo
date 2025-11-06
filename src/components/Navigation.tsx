@@ -15,6 +15,18 @@ const navItems = [{
   label: "Services",
   href: "#services"
 }, {
+  label: "News",
+  href: "/community-news"
+}, {
+  label: "Jobs",
+  href: "/job-seeker"
+}, {
+  label: "AI Tutor",
+  href: "/ai-tutor"
+}, {
+  label: "Classroom",
+  href: "/community-classroom"
+}, {
   label: "Get Involved",
   href: "#join"
 }];
