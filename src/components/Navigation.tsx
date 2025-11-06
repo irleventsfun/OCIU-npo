@@ -36,7 +36,7 @@ export const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#home" className="flex items-center">
+          <a href="/" className="flex items-center">
             <img src={logoBanner} alt="Community & Unity" className="h-12 w-auto" />
           </a>
 

@@ -18,7 +18,7 @@ export const Hero = () => {
             <img 
               src={logoSquare} 
               alt="Community & Unity Logo" 
-              className="w-64 h-64 md:w-80 md:h-80 animate-float"
+              className="w-64 h-64 md:w-80 md:h-80"
             />
           </div>
 
