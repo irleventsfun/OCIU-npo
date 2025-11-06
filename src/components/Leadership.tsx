@@ -5,22 +5,10 @@ import { Users, UserCheck, Settings } from "lucide-react";
 const leaders = [{
   name: "Cameron De Vries",
   role: "Director",
-  percentage: "60%",
+  percentage: "100%",
   icon: Users,
   image: cameronPortrait,
   description: "Leading the vision and strategic direction of Community & Unity, and host of Unspoken Truths podcast."
-}, {
-  name: "Bertha Alicia De Vries",
-  role: "HR Manager",
-  percentage: "30%",
-  icon: UserCheck,
-  description: "Driving people-first culture and building strong teams that reflect our community values."
-}, {
-  name: "Antonio Clifford Marais",
-  role: "Operations Manager",
-  percentage: "10%",
-  icon: Settings,
-  description: "Ensuring smooth operations and sustainable growth across all our initiatives."
 }];
 export const Leadership = () => {
   return <section className="py-24 bg-muted/30">
