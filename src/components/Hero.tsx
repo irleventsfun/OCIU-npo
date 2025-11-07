@@ -15,11 +15,13 @@ export const Hero = () => {
         <div className="max-w-5xl mx-auto text-center space-y-8 animate-fade-in">
           {/* Logo */}
           <div className="flex justify-center mb-8">
-            <img 
-              src={logoSquare} 
-              alt="Community & Unity Logo" 
-              className="w-64 h-64 md:w-80 md:h-80"
-            />
+            <div className="inline-flex items-center justify-center rounded-[2rem] bg-[hsl(var(--logo-background))] p-4 md:p-6 shadow-2xl shadow-black/25">
+              <img 
+                src={logoSquare} 
+                alt="Community & Unity Logo" 
+                className="w-64 h-64 md:w-80 md:h-80"
+              />
+            </div>
           </div>
 
           {/* Main Heading */}
@@ -48,12 +50,6 @@ export const Hero = () => {
             </Button>
           </div>
 
-          {/* Scroll Indicator */}
-          <div className="pt-16 animate-bounce">
-            <div className="w-6 h-10 border-2 border-white/50 rounded-full mx-auto flex justify-center">
-              <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse" />
-            </div>
-          </div>
         </div>
       </div>
     </section>
