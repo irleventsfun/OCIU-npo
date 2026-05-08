@@ -18,3 +18,12 @@ class BaseAgent(ABC):
 
     def get_model(self):
         return router.select_model(self.complexity)
+
+    async def generate_response(self, prompt: str) -> str:
+        model = self.get_model()
+        if model == "cloud-fallback":
+            from backend.services.cloud_fallback import cloud_fallback
+            return await cloud_fallback.generate(prompt)
+        else:
+            from backend.services.ollama_client import ollama_client
+            return await ollama_client.generate(model, prompt)

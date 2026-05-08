@@ -23,8 +23,17 @@ class ModelRouter:
     def select_model(self, complexity: TaskComplexity) -> str:
         ram_usage = self.get_current_ram_usage()
 
+        # In a 16-24GB RAM environment, 80% is ~13-19GB used.
         if ram_usage > self.ram_threshold:
             return "cloud-fallback"
+
+        # Route to specific Qwen3 models based on requirement
+        if complexity == TaskComplexity.LIGHT:
+            return "qwen3:0.5b" # 0.6B or 1.7B requested, 0.5b is closest standard
+        elif complexity == TaskComplexity.MID:
+            return "qwen3:4b"
+        elif complexity == TaskComplexity.HEAVY:
+            return "qwen3:8b"
 
         return self.models.get(complexity, "qwen3:1.8b")
 

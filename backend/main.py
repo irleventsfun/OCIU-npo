@@ -3,11 +3,13 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from backend.api.endpoints import api_router
+from backend.api.business_suite import business_suite_router
 
 load_dotenv()
 
 app = FastAPI(title="CamoFlow OS API")
 app.include_router(api_router, prefix="/api")
+app.include_router(business_suite_router, prefix="/business-suite")
 
 app.add_middleware(
     CORSMiddleware,

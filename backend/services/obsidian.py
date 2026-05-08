@@ -3,10 +3,14 @@ from pathlib import Path
 
 class ObsidianVault:
     def __init__(self):
-        self.vault_path = os.getenv("OBSIDIAN_VAULT_PATH", "./obsidian_vault")
-        os.makedirs(self.vault_path, exist_ok=True)
+        self._vault_path = None
+
+    @property
+    def vault_path(self):
+        return os.getenv("OBSIDIAN_VAULT_PATH", "./obsidian_vault")
 
     def write_note(self, title: str, content: str, folder: str = ""):
+        os.makedirs(self.vault_path, exist_ok=True)
         target_dir = Path(self.vault_path) / folder
         target_dir.mkdir(parents=True, exist_ok=True)
 

@@ -43,7 +43,10 @@ async def run_video_agent(payload: dict = Body(...)):
 
 @api_router.post("/agent/avatar")
 async def run_avatar_agent(payload: dict = Body(...)):
-    return await avatar_agent.run(payload.get("prompt"))
+    return await avatar_agent.run(
+        payload.get("audio_path"),
+        payload.get("image_path")
+    )
 
 @api_router.post("/agent/prospect")
 async def run_prospect_agent(payload: dict = Body(...)):

@@ -7,14 +7,13 @@ class ContentGeneratorAgent(BaseAgent):
         super().__init__("ContentGenerator", TaskComplexity.MID)
 
     async def run(self, topic: str) -> dict:
-        model = self.get_model()
-
-        result = f"Generated content about {topic} using {model}."
+        prompt = f"Generate a social media post about {topic}. Brand voice: Professional yet engaging."
+        result = await self.generate_response(prompt)
 
         self.log_to_vault(f"content_{hash(topic) % 10000}", result)
 
         return {
-            "model_used": model,
+            "model_used": self.get_model(),
             "output": result
         }
 
