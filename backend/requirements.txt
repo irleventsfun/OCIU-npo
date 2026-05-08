@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+python-dotenv
+pydantic
+requests
+httpx
+psutil
+openai
+whisper
+torch
+torchaudio
+# Add other specific libraries as needed during agent implementation
