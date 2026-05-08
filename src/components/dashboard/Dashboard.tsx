@@ -19,17 +19,47 @@ export const Dashboard = () => {
   const [prompt, setPrompt] = useState("");
   const [output, setOutput] = useState("");
   const [isPhoneRender, setIsPhoneRender] = useState(false);
+  const [taskUpdates, setTaskUpdates] = useState<string[]>([]);
+
+  useEffect(() => {
+    const eventSource = new EventSource('http://localhost:8000/api/events');
+
+    eventSource.onmessage = (event) => {
+      setTaskUpdates((prev) => [...prev, event.data]);
+    };
+
+    eventSource.onerror = () => {
+      console.error("SSE Connection failed. Reconnecting...");
+      eventSource.close();
+      // Reconnect after 3s
+      setTimeout(() => {
+        // Re-run effect
+      }, 3000);
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, []);
 
   const handleRunAgent = async (agentName: string) => {
+    const userId = "test@example.com"; // Simulated
     const endpoint = agentName === 'Code Generator' ? '/api/agent/code' : '/api/agent/content';
     const body = agentName === 'Code Generator' ? { prompt } : { topic: prompt };
 
     try {
       const response = await fetch(`http://localhost:8000${endpoint}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-User-Id': userId
+        },
         body: JSON.stringify(body),
       });
+      if (response.status === 402) {
+        setOutput("Usage limit reached. Please Upgrade to Pro!");
+        return;
+      }
       const data = await response.json();
       setOutput(data.output);
     } catch (error) {
@@ -64,6 +94,22 @@ export const Dashboard = () => {
             Upgrade to Pro
           </Button>
         </div>
+      </div>
+
+      <div className="mb-8 p-4 bg-yellow-500/10 border border-yellow-500/50 rounded-lg flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-yellow-500 rounded-full text-black">
+            <Activity size={16} />
+          </div>
+          <div>
+            <h3 className="font-semibold text-sm">Join the Pro Waitlist</h3>
+            <p className="text-xs text-muted-foreground">Unlock priority rendering and custom voice slots.</p>
+          </div>
+        </div>
+        <Button size="sm" variant="outline" className="text-xs border-yellow-500 hover:bg-yellow-500 hover:text-black">
+          Apply Now
+        </Button>
+      </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -116,6 +162,15 @@ export const Dashboard = () => {
             <CardTitle>System Activity</CardTitle>
           </CardHeader>
           <CardContent>
+            <div className="space-y-4 mb-4">
+              <h3 className="text-xs font-semibold uppercase text-muted-foreground">Live Updates</h3>
+              <div className="max-h-32 overflow-y-auto space-y-1 text-xs font-mono bg-muted p-2 rounded">
+                {taskUpdates.length === 0 && <span>Waiting for tasks...</span>}
+                {taskUpdates.map((update, i) => (
+                  <div key={i} className="border-l-2 border-primary pl-2">{update}</div>
+                ))}
+              </div>
+            </div>
             <div className="space-y-4">
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">

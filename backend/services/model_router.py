@@ -22,6 +22,10 @@ class ModelRouter:
     def select_model(self, complexity: TaskComplexity) -> str:
         ram_usage = self.get_current_ram_usage()
 
+        # Check if high complexity task under high-ish load
+        if ram_usage > 0.75 and complexity == TaskComplexity.HEAVY:
+            return "qwen3:4b" # Fallback to mid model to save RAM
+
         if ram_usage > self.ram_threshold:
             return "cloud-fallback"
 

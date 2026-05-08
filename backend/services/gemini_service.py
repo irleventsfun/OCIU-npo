@@ -1,6 +1,7 @@
 import os
 import httpx
-from backend.services.ai_cache import ai_cache
+import hashlib
+from backend.services.redis_cache import redis_cache
 
 class GeminiService:
     def __init__(self):
@@ -8,7 +9,8 @@ class GeminiService:
         self.base_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 
     async def generate(self, prompt: str, temperature: float = 0.3) -> str:
-        cached = ai_cache.get(prompt)
+        prompt_hash = hashlib.sha256(prompt.encode()).hexdigest()
+        cached = await redis_cache.get(f"gemini:{prompt_hash}")
         if cached:
             return cached
 
@@ -28,7 +30,7 @@ class GeminiService:
             resp = await client.post(url, json=payload)
             if resp.status_code == 200:
                 result = resp.json()["candidates"][0]["content"]["parts"][0]["text"]
-                ai_cache.set(prompt, result)
+                await redis_cache.set(f"gemini:{prompt_hash}", result, ttl=86400) # 24h
                 return result
             return f"Gemini Error: {resp.text}"
 

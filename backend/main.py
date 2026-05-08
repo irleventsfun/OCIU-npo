@@ -1,11 +1,16 @@
 import os
-from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, Depends, Request
+from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-from typing import List
+import asyncio
+from typing import List, AsyncGenerator
 from backend.api.endpoints import api_router
 from backend.api.business_suite import business_suite_router
 from backend.api.gemini_proxy import gemini_router
+from backend.api.billing import billing_router
+from backend.middleware.subscription import subscription_middleware
+from backend.services.sse import sse_manager
 
 load_dotenv()
 
@@ -13,32 +18,13 @@ app = FastAPI(title="CamoFlow OS API")
 app.include_router(api_router, prefix="/api")
 app.include_router(business_suite_router, prefix="/business-suite")
 app.include_router(gemini_router, prefix="/api/gemini")
+app.include_router(billing_router, prefix="/api/billing")
 
-class ConnectionManager:
-    def __init__(self):
-        self.active_connections: List[WebSocket] = []
+app.middleware("http")(subscription_middleware)
 
-    async def connect(self, websocket: WebSocket):
-        await websocket.accept()
-        self.active_connections.append(websocket)
-
-    def disconnect(self, websocket: WebSocket):
-        self.active_connections.remove(websocket)
-
-    async def broadcast(self, message: str):
-        for connection in self.active_connections:
-            await connection.send_text(message)
-
-manager = ConnectionManager()
-
-@app.websocket("/ws/tasks")
-async def websocket_endpoint(websocket: WebSocket):
-    await manager.connect(websocket)
-    try:
-        while True:
-            await websocket.receive_text()
-    except WebSocketDisconnect:
-        manager.disconnect(websocket)
+@app.get("/api/events")
+async def events(request: Request):
+    return StreamingResponse(sse_manager.subscribe(), media_type="text/event-stream")
 
 app.add_middleware(
     CORSMiddleware,
@@ -59,8 +45,8 @@ async def health():
 @app.on_event("startup")
 async def startup_event():
     import threading
-    from backend.services.self_healing import self_heal
-    threading.Thread(target=self_heal, daemon=True).start()
+    from backend.services.self_healing import start_self_heal
+    threading.Thread(target=start_self_heal, daemon=True).start()
 
 if __name__ == "__main__":
     import uvicorn
