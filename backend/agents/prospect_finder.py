@@ -6,7 +6,11 @@ class ProspectFinderAgent(BaseAgent):
         super().__init__("ProspectFinder", TaskComplexity.MID)
 
     async def run(self, criteria: str) -> dict:
-        model = self.get_model()
-        return {"output": f"Simulated lead list for: {criteria}", "model_used": model}
+        prompt = f"Find and qualify prospects matching: {criteria}. Output as a list."
+        result = await self.generate_response(prompt)
+
+        self.log_to_vault(f"prospects_{hash(criteria) % 10000}", result)
+
+        return {"output": result, "model_used": self.get_model()}
 
 prospect_agent = ProspectFinderAgent()

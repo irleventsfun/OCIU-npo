@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import logoBanner from "@/assets/logo-banner.png";
 import { Menu, X } from "lucide-react";
 const navItems = [{
-  label: "OS Dashboard",
+  label: "OCIU Dashboard",
   href: "#dashboard"
 }, {
   label: "Mission",
@@ -18,16 +18,28 @@ const navItems = [{
   label: "Services",
   href: "#services"
 }, {
+  label: "News",
+  href: "/community-news"
+}, {
+  label: "Jobs",
+  href: "/job-seeker"
+}, {
+  label: "AI Tutor",
+  href: "/ai-tutor"
+}, {
+  label: "Classroom",
+  href: "/community-classroom"
+}, {
   label: "Get Involved",
   href: "#join"
 }];
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  return <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b border-border shadow-sm bg-primary">
+  return <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border shadow-sm bg-primary">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#home" className="flex items-center">
+          <a href="/" className="flex items-center">
             <img src={logoBanner} alt="Community & Unity" className="h-12 w-auto" />
           </a>
 

@@ -6,7 +6,11 @@ class EmailEngineAgent(BaseAgent):
         super().__init__("EmailEngine", TaskComplexity.LIGHT)
 
     async def run(self, context: str) -> dict:
-        model = self.get_model()
-        return {"output": f"Simulated email sequence for: {context}", "model_used": model}
+        prompt = f"Generate a personalized outreach email based on: {context}"
+        result = await self.generate_response(prompt)
+
+        self.log_to_vault(f"email_{hash(context) % 10000}", result)
+
+        return {"output": result, "model_used": self.get_model()}
 
 email_agent = EmailEngineAgent()

@@ -8,19 +8,13 @@ class CodeGeneratorAgent(BaseAgent):
         super().__init__("CodeGenerator", TaskComplexity.HEAVY)
 
     async def run(self, prompt: str, context: str = "") -> dict:
-        model = self.get_model()
-
-        if model == "cloud-fallback":
-            # Simulate cloud fallback for now as keys might be missing
-            result = f"// Cloud Fallback Result\nfunction example() {{ }}"
-        else:
-            full_prompt = f"Context from Obsidian:\n{context}\n\nTask: {prompt}\n\nGenerate the code ONLY."
-            result = await ollama_client.generate(model, full_prompt)
+        full_prompt = f"Context from Obsidian:\n{context}\n\nTask: {prompt}\n\nGenerate the code ONLY."
+        result = await self.generate_response(full_prompt)
 
         self.log_to_vault(f"codegen_{hash(prompt) % 10000}", result)
 
         return {
-            "model_used": model,
+            "model_used": self.get_model(),
             "output": result
         }
 

@@ -6,7 +6,11 @@ class MediaAnalystAgent(BaseAgent):
         super().__init__("MediaAnalyst", TaskComplexity.LIGHT)
 
     async def run(self, metrics: str) -> dict:
-        model = self.get_model()
-        return {"output": f"Simulated insights for: {metrics}", "model_used": model}
+        prompt = f"Analyze these performance metrics and summarize insights: {metrics}"
+        result = await self.generate_response(prompt)
+
+        self.log_to_vault(f"media_analysis_{hash(metrics) % 10000}", result)
+
+        return {"output": result, "model_used": self.get_model()}
 
 media_analyst_agent = MediaAnalystAgent()

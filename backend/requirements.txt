@@ -6,7 +6,8 @@ requests
 httpx
 psutil
 openai
-whisper
+openai-whisper
 torch
 torchaudio
-# Add other specific libraries as needed during agent implementation
+transformers
+scipy
