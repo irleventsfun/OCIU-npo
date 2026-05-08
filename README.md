@@ -79,6 +79,15 @@ CamoFlow OS is a local-first AI operating system with Obsidian as the central br
    docker-compose up --build
    ```
 
+### Asset Configuration
+For optimal performance of specialized agents:
+- **Voice Studio**: Place 10–15 minutes of clean voice samples (.wav or .mp3) in `backend/assets/voice_samples/` for high-quality Coqui voice cloning.
+- **3D Avatar**: Drop a clean front-facing photo in `backend/assets/avatar_faces/` (default: `user_face.jpg`).
+
+### Business Suite Integration
+The CamoFlow Business Suite is pre-configured to route through this OS. You can test the bridge using:
+`POST /business-suite/content-studio` or `POST /business-suite/prospect-engine`.
+
 ## What technologies are used for this project?
 
 This project is built with:

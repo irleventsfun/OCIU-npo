@@ -7,6 +7,7 @@ class BaseAgent(ABC):
     def __init__(self, name: str, complexity: TaskComplexity):
         self.name = name
         self.complexity = complexity
+        self.last_model_used = None
 
     @abstractmethod
     async def run(self, input_data: Any) -> Dict[str, Any]:
@@ -17,7 +18,9 @@ class BaseAgent(ABC):
         obsidian.write_note(f"{task_name}_{self.name}", content, folder="logs")
 
     def get_model(self):
-        return router.select_model(self.complexity)
+        model = router.select_model(self.complexity)
+        self.last_model_used = model
+        return model
 
     async def generate_response(self, prompt: str) -> str:
         model = self.get_model()
