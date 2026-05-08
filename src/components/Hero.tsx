@@ -26,17 +26,17 @@ export const Hero = () => {
 
           {/* Main Heading */}
           <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-            Community & Unity
+            Our Community in Unity (OCIU)
           </h1>
 
           {/* Motto */}
           <p className="text-2xl md:text-3xl text-white/90 font-semibold">
-            Each One Teach One
+            Learn, Build, Earn
           </p>
 
           {/* Tagline */}
           <p className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
-            Empowering communities through collective knowledge
+            Empowering communities to learn, build, and support community growth.
           </p>
 
           {/* CTA Buttons */}

@@ -50,6 +50,44 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
+## CamoFlow OS
+
+CamoFlow OS is a local-first AI operating system with Obsidian as the central brain.
+
+### Features
+- **Local-first**: Runs on CPU via Ollama (Qwen3 models).
+- **Model Routing**: Auto-selects model size based on task complexity and RAM pressure.
+- **Obsidian Brain**: Uses an Obsidian vault for memory, logs, and context.
+- **Agentic Workflows**: Includes specialized agents for Code, Content, Voice, and Web Design.
+
+### Stack
+- **Backend**: FastAPI orchestration layer.
+- **Frontend**: React + Tailwind + Shadcn UI.
+- **Models**: Ollama (Qwen3-0.5B, 4B, 8B).
+- **Deployment**: Docker Compose.
+
+### Setup
+1. Copy `.env.example` to `.env` and fill in API keys if needed (for fallback).
+2. Install Ollama and pull required models:
+   ```bash
+   ollama pull qwen3:0.5b
+   ollama pull qwen3:4b
+   ollama pull qwen3:8b
+   ```
+3. Run with Docker Compose:
+   ```bash
+   docker-compose up --build
+   ```
+
+### Asset Configuration
+For optimal performance of specialized agents:
+- **Voice Studio**: Place 10–15 minutes of clean voice samples (.wav or .mp3) in `backend/assets/voice_samples/` for high-quality Coqui voice cloning.
+- **3D Avatar**: Drop a clean front-facing photo in `backend/assets/avatar_faces/` (default: `user_face.jpg`).
+
+### Business Suite Integration
+The CamoFlow Business Suite is pre-configured to route through this OS. You can test the bridge using:
+`POST /business-suite/content-studio` or `POST /business-suite/prospect-engine`.
+
 ## What technologies are used for this project?
 
 This project is built with:
@@ -59,6 +97,8 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+- FastAPI
+- Ollama
 
 ## How can I deploy this project?
 
