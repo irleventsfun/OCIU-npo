@@ -18,6 +18,7 @@ export const Dashboard = () => {
 
   const [prompt, setPrompt] = useState("");
   const [output, setOutput] = useState("");
+  const [isPhoneRender, setIsPhoneRender] = useState(false);
 
   const handleRunAgent = async (agentName: string) => {
     const endpoint = agentName === 'Code Generator' ? '/api/agent/code' : '/api/agent/content';
@@ -50,6 +51,18 @@ export const Dashboard = () => {
             <Database size={14} />
             Vault Synced
           </Badge>
+          <div className="flex items-center gap-2 bg-secondary/50 px-3 py-1 rounded-full text-xs">
+            <span>Render on Phone</span>
+            <input
+              type="checkbox"
+              checked={isPhoneRender}
+              onChange={() => setIsPhoneRender(!isPhoneRender)}
+              className="accent-primary"
+            />
+          </div>
+          <Button variant="default" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold h-8 text-xs">
+            Upgrade to Pro
+          </Button>
         </div>
       </div>
 
