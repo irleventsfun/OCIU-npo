@@ -5,14 +5,18 @@ import { Leadership } from "@/components/Leadership";
 import { Podcast } from "@/components/Podcast";
 import { DigitalAgency } from "@/components/DigitalAgency";
 import { CallToAction } from "@/components/CallToAction";
+import { Dashboard } from "@/components/dashboard/Dashboard";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Navigation />
       <main>
         <div id="home">
           <Hero />
+        </div>
+        <div id="dashboard" className="container mx-auto py-12">
+          <Dashboard />
         </div>
         <div id="mission">
           <MissionVision />
