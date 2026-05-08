@@ -9,6 +9,8 @@ from backend.agents.avatar_3d import avatar_agent
 from backend.agents.prospect_finder import prospect_agent
 from backend.agents.email_engine import email_agent
 from backend.agents.media_analyst import media_analyst_agent
+from backend.agents.donor_buddy import donor_buddy_agent
+from backend.agents.website_builder import website_builder_agent
 from backend.services.model_router import router
 
 api_router = APIRouter()
@@ -59,3 +61,11 @@ async def run_email_agent(payload: dict = Body(...)):
 @api_router.post("/agent/media")
 async def run_media_agent(payload: dict = Body(...)):
     return await media_analyst_agent.run(payload.get("metrics"))
+
+@api_router.post("/agent/donor")
+async def run_donor_agent(payload: dict = Body(...)):
+    return await donor_buddy_agent.run(payload.get("need"))
+
+@api_router.post("/agent/website")
+async def run_website_agent(payload: dict = Body(...)):
+    return await website_builder_agent.run(payload.get("description"))

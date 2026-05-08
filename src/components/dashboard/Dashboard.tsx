@@ -5,7 +5,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Cpu, Database, Activity, Code, PenTool, Mic, Layout } from "lucide-react";
+import { Cpu, Database, Activity, Code, PenTool, Mic, Layout, BookOpen, Briefcase, Heart } from "lucide-react";
+import { CommunityBuddy } from "@/components/buddy/CommunityBuddy";
+import { StudyBuddy } from "@/components/study/StudyBuddy";
+import { JobBoard } from "@/components/jobs/JobBoard";
+import { CommunityGiving } from "@/components/giving/CommunityGiving";
+import { ImpactReport } from "@/components/dashboard/ImpactReport";
+import { MemberProfile } from "@/components/dashboard/MemberProfile";
+import { WebsiteBuilder } from "@/components/builder/WebsiteBuilder";
+import { AIBuilder } from "@/components/builder/AIBuilder";
+import { CommunityFeed } from "@/components/dashboard/CommunityFeed";
 
 export const Dashboard = () => {
   const [ramUsage, setRamUsage] = useState(45);
@@ -70,9 +79,12 @@ export const Dashboard = () => {
 
   return (
     <div className="p-8 bg-background min-h-screen text-foreground">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-bold tracking-tight">CamoFlow OS</h1>
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight">OCIU Community Platform</h1>
+          <p className="text-sm text-muted-foreground">Our Community in Unity: Learn, Build, Earn.</p>
+        </div>
+        <div className="flex flex-wrap items-center gap-4">
           <Badge variant={ramUsage > 80 ? "destructive" : "secondary"} className="flex items-center gap-1">
             <Cpu size={14} />
             RAM: {ramUsage}%
@@ -110,6 +122,13 @@ export const Dashboard = () => {
           Apply Now
         </Button>
       </div>
+
+      <div className="mb-8">
+        <ImpactReport />
+      </div>
+
+      <div className="mb-8">
+        <CommunityBuddy />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -131,6 +150,30 @@ export const Dashboard = () => {
         ))}
       </div>
 
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+        <div className="lg:col-span-2 space-y-8">
+          <MemberProfile />
+          <AIBuilder />
+          <StudyBuddy />
+          <JobBoard />
+        </div>
+        <div className="space-y-8">
+          <CommunityGiving />
+          <WebsiteBuilder />
+          <CommunityFeed />
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-sm font-medium">Donor Buddy Insights</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="p-3 bg-red-500/5 rounded border border-red-500/20 text-xs italic">
+                "3 local businesses in your area have CSR programs that match our current learning needs."
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <Card className="lg:col-span-2">
           <CardHeader>
@@ -145,9 +188,19 @@ export const Dashboard = () => {
                 onChange={(e) => setPrompt(e.target.value)}
               />
             </div>
-            <div className="flex gap-2">
-              <Button onClick={() => handleRunAgent('Code Generator')}>Run Code Agent</Button>
-              <Button variant="outline" onClick={() => handleRunAgent('Content Gen')}>Run Content Agent</Button>
+            <div className="flex flex-wrap gap-2">
+              <Button onClick={() => handleRunAgent('Code Generator')}>
+                <Code className="mr-2 h-4 w-4" /> AI Builder
+              </Button>
+              <Button variant="outline" onClick={() => handleRunAgent('StudyBuddy')}>
+                <BookOpen className="mr-2 h-4 w-4" /> StudyBuddy
+              </Button>
+              <Button variant="outline" onClick={() => handleRunAgent('Real Jobs')}>
+                <Briefcase className="mr-2 h-4 w-4" /> Real Jobs
+              </Button>
+              <Button variant="outline" className="border-red-500/50 hover:bg-red-500/10 text-red-500" onClick={() => handleRunAgent('Donor Buddy')}>
+                <Heart className="mr-2 h-4 w-4" /> Donor Buddy
+              </Button>
             </div>
             {output && (
               <div className="mt-4 p-4 bg-muted rounded-md font-mono text-sm">

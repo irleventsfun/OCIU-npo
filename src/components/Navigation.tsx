@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import logoBanner from "@/assets/logo-banner.png";
 import { Menu, X } from "lucide-react";
 const navItems = [{
-  label: "OS Dashboard",
+  label: "OCIU Dashboard",
   href: "#dashboard"
 }, {
   label: "Mission",
